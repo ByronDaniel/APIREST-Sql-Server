@@ -9665,9 +9665,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.csproj",
-      "projectName": "product",
-      "projectPath": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.csproj",
+      "projectUniqueName": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.API.csproj",
+      "projectName": "product.API",
+      "projectPath": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.API.csproj",
       "packagesPath": "C:\\Users\\ByronDaniel\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\obj\\",
       "projectStyle": "PackageReference",

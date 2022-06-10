@@ -1,22 +1,15 @@
+using product.API.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace BP.Models;
+namespace product.API.Models;
 
-public class Usuario
+public class Usuario : Persona
 {
-    public Usuario(string ci, string nombre, string apellido, DateTime fechaNacimiento, double salarioPromedio)
+    public Usuario(string ci, string nombre, string apellido, DateTime fechaNacimiento, double salarioPromedio) : base(ci,nombre,apellido,fechaNacimiento)
     {
-        Ci = ci;
-        Nombre = nombre;
-        Apellido = apellido;
-        FechaNacimiento = fechaNacimiento;
         SalarioPromedio = salarioPromedio;
     }
-    [Key]
-    public string Ci { get; set; }
-
-    public string Nombre { get; set; }
-    public string Apellido { get; set; }
-    public DateTime FechaNacimiento { get; set; }
+    
     public double SalarioPromedio { get; set; }
+    public List<Cuenta>? Cuentas { get; set; }
 }

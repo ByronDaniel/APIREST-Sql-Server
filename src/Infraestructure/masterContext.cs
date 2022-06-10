@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using BP.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using product.Models;
+using product.API.Models;
 
-namespace product.Context
+namespace product.Api.Infraestructure
 {
     public partial class masterContext : DbContext
     {

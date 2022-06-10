@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace product.Models
+namespace product.API.Models
 {
     public class Cuenta
     {
@@ -17,5 +18,7 @@ namespace product.Models
         public string CiUsuario { get; set; }
         public char Tipo { get; set; }
         public double Saldo { get; set; }
+        [ForeignKey("CiUsuario")]
+        public Usuario Usuario { get; set; }
     }
 }

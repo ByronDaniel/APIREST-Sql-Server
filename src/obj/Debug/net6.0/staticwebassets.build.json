@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "gpzOyvCFQ85vMElZ+cnRrQoKgUl+eK1Rg3oVUWPGc5w=",
-  "Source": "product",
-  "BasePath": "_content/product",
+  "Hash": "pUwNhXPczUyxLJd9LAIviNEUvCh556YUNivuby+gTNw=",
+  "Source": "product.API",
+  "BasePath": "_content/product.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
