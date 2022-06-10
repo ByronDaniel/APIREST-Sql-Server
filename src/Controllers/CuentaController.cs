@@ -1,29 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
-using product.Models;
-using product.Context;
-using BP.Models;
-using Microsoft.EntityFrameworkCore;
+using product.API.Models;
+using product.API.Services;
 
-namespace product.Controllers;
+namespace product.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class CuentaController : ControllerBase
 {
-    private readonly masterContext context;
-    private readonly ILogger<CuentaController> _logger;
-    public CuentaController(ILogger<CuentaController> logger, masterContext context)
+    private readonly ICuentaService _cuentaService;
+    public CuentaController(ICuentaService cuentaService)
     {
-        _logger = logger;
-        this.context = context;
+        _cuentaService = cuentaService;
     }
-
+    
     [HttpGet(Name = "GetCuentas")]
     public ActionResult GetCuentas()
     {
         try
         {
-            return Ok(context.cuenta.ToList());
+            return Ok(_cuentaService.GetCuentas());
         }
         catch (Exception ex)
         {
@@ -31,13 +27,12 @@ public class CuentaController : ControllerBase
         }
     }
 
-    [HttpGet("{numero:int}", Name = "GetCuenta")]
+    [HttpGet("{numero}", Name = "GetCuenta")]
     public ActionResult GetCuenta(string numero)
     {
         try
         {
-            var cuenta = context.cuenta.FirstOrDefault(u => u.Numero == numero);
-            return Ok(cuenta);
+            return Ok(_cuentaService.GetCuenta(numero));
         }
         catch (Exception ex)
         {
@@ -46,59 +41,38 @@ public class CuentaController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult PostUsuario(Cuenta cuenta)
+    public ActionResult PostCuenta(Cuenta cuenta)
     {
         try
         {
-            context.cuenta.Add(cuenta);
-            context.SaveChanges();
-            return CreatedAtRoute("GetCuenta", new { numero = cuenta.Numero}, cuenta);
+            return Ok(_cuentaService.PostCuenta(cuenta));
         }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.InnerException);
-        }
-    }
-
-
-    [HttpPut("{numero:int}")]
-    public ActionResult UpdateUsuario(string numero, Cuenta cuenta)
-    {
-        try
-        {
-            if (cuenta.Numero == numero)
-            {
-                context.Entry(cuenta).State = EntityState.Modified;
-                context.SaveChanges();
-                return CreatedAtRoute("GetCuenta", new { numero = cuenta.Numero}, cuenta);
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
-        catch (Exception ex)
+        catch(Exception ex)
         {
             return BadRequest(ex.Message);
         }
     }
 
-    [HttpDelete("{numero:int}")]
-    public ActionResult DeleteUsuario(string numero)
+    [HttpPut]
+    public ActionResult UpdateCuenta(Cuenta cuenta)
     {
         try
         {
-            var cuenta = context.cuenta.FirstOrDefault(u => u.Numero == numero);
-            if (cuenta != null)
-            {
-                context.cuenta.Remove(cuenta);
-                context.SaveChanges();
-                return Ok(numero);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Ok(_cuentaService.UpdateCuenta(cuenta));
+        }
+        catch(Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Route("{numero}")]
+    [HttpDelete]
+    public ActionResult DeleteCuenta(string numero)
+    {
+        try
+        {
+            return Ok($"Cuenta {_cuentaService.DeleteCuenta(numero)} borrada con Exito!");
         }
         catch (Exception ex)
         {

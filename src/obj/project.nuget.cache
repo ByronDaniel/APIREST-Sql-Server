@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tpS1lMxL8SQv+G5nSkXVy2X5kVtqXSOhjbKLzPoomfeGutMubZoCvmUH33UWO/+kjfVg8qLfMBofZV/U1CAotA==",
+  "dgSpecHash": "aU5tYWHyCiZWtYj9u4PDgl0GWoTmiHezgc8lOvTCRO0gaT1cYeFOHjtzwpvRG8e2z6wDir0uSelZLPDJ1wPu2A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.csproj",
+  "projectFilePath": "C:\\Users\\ByronDaniel\\Documents\\BP\\Backend\\Clase 2\\API REST NET\\src\\product.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ByronDaniel\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ByronDaniel\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

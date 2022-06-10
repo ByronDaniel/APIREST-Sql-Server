@@ -1,21 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-using product.Models;
-using product.Context;
-using BP.Models;
-using Microsoft.EntityFrameworkCore;
+using product.API.Services;
+using product.API.Models;
 
-namespace product.Controllers;
+namespace product.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UsuarioController : ControllerBase
 {
-    private readonly masterContext context;
-    private readonly ILogger<UsuarioController> _logger;
-    public UsuarioController(ILogger<UsuarioController> logger, masterContext context)
+    private readonly IUsuarioService _usuarioService;
+    public UsuarioController(IUsuarioService usuarioService)
     {
-        _logger = logger;
-        this.context = context;
+        _usuarioService = usuarioService;
     }
 
     [HttpGet(Name = "GetUsuarios")]
@@ -23,7 +19,7 @@ public class UsuarioController : ControllerBase
     {
         try
         {
-            return Ok(context.usuario.ToList());
+            return Ok(_usuarioService.GetUsuarios());
         }
         catch (Exception ex)
         {
@@ -31,13 +27,12 @@ public class UsuarioController : ControllerBase
         }
     }
 
-    [HttpGet("{ci:int}", Name = "GetUsuario")]
+    [HttpGet("{ci}", Name = "GetUsuario")]
     public ActionResult GetUsuario(string ci)
     {
         try
         {
-            var usuario = context.usuario.FirstOrDefault(u => u.Ci == ci);
-            return Ok(usuario);
+            return Ok(_usuarioService.GetUsuario(ci));
         }
         catch (Exception ex)
         {
@@ -50,32 +45,7 @@ public class UsuarioController : ControllerBase
     {
         try
         {
-            context.usuario.Add(usuario);
-            context.SaveChanges();
-            return CreatedAtRoute("GetUsuario", new { ci = usuario.Ci}, usuario);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.InnerException);
-        }
-    }
-
-
-    [HttpPut("{ci:int}")]
-    public ActionResult UpdateUsuario(string ci, Usuario usuario)
-    {
-        try
-        {
-            if (usuario.Ci == ci)
-            {
-                context.Entry(usuario).State = EntityState.Modified;
-                context.SaveChanges();
-                return CreatedAtRoute("GetUsuario", new { ci = usuario.Ci}, usuario);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Ok(_usuarioService.PostUsuario(usuario));
         }
         catch (Exception ex)
         {
@@ -83,22 +53,26 @@ public class UsuarioController : ControllerBase
         }
     }
 
-    [HttpDelete("{ci:int}")]
+    [HttpPut]
+    public ActionResult UpdateUsuario(Usuario usuario)
+    {
+        try
+        {
+            return Ok(_usuarioService.UpdateUsuario(usuario));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [Route("{ci}")]
+    [HttpDelete]
     public ActionResult DeleteUsuario(string ci)
     {
         try
         {
-            var usuario = context.usuario.FirstOrDefault(u => u.Ci == ci);
-            if (usuario != null)
-            {
-                context.usuario.Remove(usuario);
-                context.SaveChanges();
-                return Ok(ci);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return Ok($"Usuario {_usuarioService.DeleteUsuario(ci)} borrado con Exito!");
         }
         catch (Exception ex)
         {
